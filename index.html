@@ -1,188 +1,188 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="robots" content="noindex, nofollow">
-    <title>新宿は豪雨</title>
-    <style>
-        /* 全体設定 */
-        body {
-            background-color: #FFFFFF;
-            color: #3B5998;
-            font-family: "MS PGothic", "MS Gothic", "HG Maru Gothic M-PRO", sans-serif;
-            margin: 0;
-            padding: 0;
-            overflow-x: hidden;
-        }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex, nofollow">
+    <title>ワークスペース - 究極の医療体験</title>
+    <style>
+        /* 全体設定 */
+        body {
+            background-color: #FFFFFF;
+            color: #3B5998;
+            font-family: "MS PGothic", "MS Gothic", "HG Maru Gothic M-PRO", sans-serif;
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+        }
 
-        /* ワードアート再現 */
-        .wordart {
-            font-size: 50px;
-            font-weight: bold;
-            display: inline-block;
-            transform: skew(-10deg) rotate(-5deg);
-            background: linear-gradient(to bottom, #FF0000, #FFFF00, #00FF00, #00FFFF, #0000FF, #FF00FF, #FF0000);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            filter: drop-shadow(5px 5px 0px #333);
-            margin: 40px;
-            border: 5px double #FF00FF;
-        }
+        /* ワードアート再現 */
+        .wordart {
+            font-size: 50px;
+            font-weight: bold;
+            display: inline-block;
+            transform: skew(-10deg) rotate(-5deg);
+            background: linear-gradient(to bottom, #FF0000, #FFFF00, #00FF00, #00FFFF, #0000FF, #FF00FF, #FF0000);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            filter: drop-shadow(5px 5px 0px #333);
+            margin: 40px;
+            border: 5px double #FF00FF;
+        }
 
-        /* イルカと吹き出し */
-        .clippy-area {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            z-index: 1000;
-            width: 250px;
-        }
-        .dolphin {
-            width: 80px;
-            background-color: #00FFFF;
-            border: 2px solid #000;
-        }
-        .bubble {
-            background-color: #FFFFE1;
-            border: 1px solid #000;
-            padding: 10px;
-            border-radius: 10px;
-            font-size: 12px;
-            box-shadow: 3px 3px 0px rgba(0,0,0,0.5);
-            margin-bottom: 5px;
-        }
-        .bubble input {
-            width: 90%;
-            font-size: 10px;
-        }
+        /* イルカと吹き出し */
+        .clippy-area {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 1000;
+            width: 250px;
+        }
+        .dolphin {
+            width: 80px;
+            background-color: #00FFFF;
+            border: 2px solid #000;
+        }
+        .bubble {
+            background-color: #FFFFE1;
+            border: 1px solid #000;
+            padding: 10px;
+            border-radius: 10px;
+            font-size: 12px;
+            box-shadow: 3px 3px 0px rgba(0,0,0,0.5);
+            margin-bottom: 5px;
+        }
+        .bubble input {
+            width: 90%;
+            font-size: 10px;
+        }
 
-        /* バクダン */
-        .bomb {
-            background-color: #FF0000;
-            color: yellow;
-            clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
-            width: 150px;
-            height: 150px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            font-weight: bold;
-            font-size: 18px;
-            position: absolute;
-            animation: flash 0.5s infinite;
-            border: 5px solid gold;
-        }
+        /* バクダン */
+        .bomb {
+            background-color: #FF0000;
+            color: yellow;
+            clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
+            width: 150px;
+            height: 150px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            font-weight: bold;
+            font-size: 18px;
+            position: absolute;
+            animation: flash 0.5s infinite;
+            border: 5px solid gold;
+        }
 
-        @keyframes flash {
-            0% { opacity: 1; }
-            50% { opacity: 0.5; }
-            100% { opacity: 1; }
-        }
+        @keyframes flash {
+            0% { opacity: 1; }
+            50% { opacity: 0.5; }
+            100% { opacity: 1; }
+        }
 
-        /* スマイルマーク */
-        .smile {
-            width: 50px;
-            height: 50px;
-            background: yellow;
-            border-radius: 50%;
-            border: 2px solid black;
-            position: relative;
-            display: inline-block;
-        }
-        .smile::before, .smile::after {
-            content: '';
-            position: absolute;
-            width: 8px;
-            height: 8px;
-            background: black;
-            border-radius: 50%;
-            top: 15px;
-        }
-        .smile::before { left: 12px; }
-        .smile::after { right: 12px; }
-        .smile-mouth {
-            width: 25px;
-            height: 10px;
-            border-bottom: 2px solid black;
-            border-radius: 50%;
-            position: absolute;
-            bottom: 10px;
-            left: 12px;
-        }
+        /* スマイルマーク */
+        .smile {
+            width: 50px;
+            height: 50px;
+            background: yellow;
+            border-radius: 50%;
+            border: 2px solid black;
+            position: relative;
+            display: inline-block;
+        }
+        .smile::before, .smile::after {
+            content: '';
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            background: black;
+            border-radius: 50%;
+            top: 15px;
+        }
+        .smile::before { left: 12px; }
+        .smile::after { right: 12px; }
+        .smile-mouth {
+            width: 25px;
+            height: 10px;
+            border-bottom: 2px solid black;
+            border-radius: 50%;
+            position: absolute;
+            bottom: 10px;
+            left: 12px;
+        }
 
-        /* セクション設定 */
-        section {
-            padding: 20px;
-            border: 10px ridge #6C5CE7;
-            margin: 20px;
-            background-color: #f0f0f0;
-        }
+        /* セクション設定 */
+        section {
+            padding: 20px;
+            border: 10px ridge #6C5CE7;
+            margin: 20px;
+            background-color: #f0f0f0;
+        }
 
-        .hero {
-            text-align: center;
-            background: repeating-linear-gradient(45deg, #FF6B6B, #FF6B6B 10px, #FFD93D 10px, #FFD93D 20px);
-        }
-        .hero img {
-            width: 80%;
-            border: 15px outset #39FF14;
-        }
+        .hero {
+            text-align: center;
+            background: repeating-linear-gradient(45deg, #FF6B6B, #FF6B6B 10px, #FFD93D 10px, #FFD93D 20px);
+        }
+        .hero img {
+            width: 80%;
+            border: 15px outset #39FF14;
+        }
 
-        /* 診療科目リスト（視認性悪） */
-        .clinics {
-            background-color: #00FFFF;
-            color: #FF00FF;
-            column-count: 2;
-        }
-        .clinics li {
-            font-size: 25px;
-            text-shadow: 2px 2px #FFFF00;
-            transform: rotate(2deg);
-        }
+        /* 診療科目リスト（視認性悪） */
+        .clinics {
+            background-color: #00FFFF;
+            color: #FF00FF;
+            column-count: 2;
+        }
+        .clinics li {
+            font-size: 25px;
+            text-shadow: 2px 2px #FFFF00;
+            transform: rotate(2deg);
+        }
 
-        /* ランキング */
-        .ranking-box {
-            background-color: #39FF14;
-            color: #000;
-            border: 5px dashed red;
-        }
-        .rank-item {
-            background: #FFFF00;
-            margin: 5px;
-            padding: 10px;
-            border: 3px solid #000;
-            font-weight: 900;
-        }
+        /* ランキング */
+        .ranking-box {
+            background-color: #39FF14;
+            color: #000;
+            border: 5px dashed red;
+        }
+        .rank-item {
+            background: #FFFF00;
+            margin: 5px;
+            padding: 10px;
+            border: 3px solid #000;
+            font-weight: 900;
+        }
 
-        /* 医師紹介 */
-        .doctor-card {
-            background-color: #FFFFFF;
-            border: 10px dotted #6C5CE7;
-            padding: 10px;
-            display: flex;
-            align-items: center;
-        }
-        .doctor-card img {
-            width: 150px;
-            filter: contrast(200%) brightness(150%);
-        }
+        /* 医師紹介 */
+        .doctor-card {
+            background-color: #FFFFFF;
+            border: 10px dotted #6C5CE7;
+            padding: 10px;
+            display: flex;
+            align-items: center;
+        }
+        .doctor-card img {
+            width: 150px;
+            filter: contrast(200%) brightness(150%);
+        }
 
-        footer {
-            background: black;
-            color: white;
-            text-align: center;
-            padding: 50px;
-            font-size: 40px;
-            text-decoration: blink;
-        }
+        footer {
+            background: black;
+            color: white;
+            text-align: center;
+            padding: 50px;
+            font-size: 40px;
+            text-decoration: blink;
+        }
 
-        /* モバイル調整 */
-        @media (max-width: 600px) {
-            .wordart { font-size: 30px; }
-            .clinics { column-count: 1; }
-        }
-    </style>
+        /* モバイル調整 */
+        @media (max-width: 600px) {
+            .wordart { font-size: 30px; }
+            .clinics { column-count: 1; }
+        }
+    </style>
 </head>
 <body>
 
