@@ -1,81 +1,257 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="robots" content="noindex, nofollow">
-    <title>新宿は豪雨</title>
-    <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex, nofollow">
+    <title>新宿は豪雨</title>
+    <style>
+        /* 全体設定 */
+        body {
+            background-color: #ff1493;
+            color: #3B5998;
+            font-family: "MS PGothic", "MS Gothic", "HG Maru Gothic M-PRO", sans-serif;
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+        }
+
+        /* ワードアート再現 */
+        .wordart {
+            font-size: 50px;
+            font-weight: bold;
+            display: inline-block;
+            transform: skew(-10deg) rotate(-5deg);
+            background: linear-gradient(to bottom, #FF0000, #FFFF00, #00FF00, #00FFFF, #0000FF, #FF00FF, #FF0000);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            filter: drop-shadow(5px 5px 0px #333);
+            margin: 40px;
+            border: 5px double #FF00FF;
+        }
+
+        /* イルカと吹き出し */
+        .clippy-area {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 1000;
+            width: 250px;
+        }
+        .dolphin {
+            width: 80px;
+            background-color: #00FFFF;
+            border: 2px solid #000;
+        }
+        .bubble {
+            background-color: #FFFFE1;
+            border: 1px solid #000;
+            padding: 10px;
+            border-radius: 10px;
+            font-size: 12px;
+            box-shadow: 3px 3px 0px rgba(0,0,0,0.5);
+            margin-bottom: 5px;
+        }
+        .bubble input {
+            width: 90%;
+            font-size: 10px;
+        }
+
+        /* バクダン */
+        .bomb {
+            background-color: #FF0000;
+            color: yellow;
+            clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
+            width: 150px;
+            height: 150px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            font-weight: bold;
+            font-size: 18px;
+            position: absolute;
+            animation: flash 0.5s infinite;
+            border: 5px solid gold;
+        }
+
+        @keyframes flash {
+            0% { opacity: 1; }
+            50% { opacity: 0.5; }
+            100% { opacity: 1; }
+        }
+
+        /* スマイルマーク */
+        .smile {
+            width: 50px;
+            height: 50px;
+            background: yellow;
+            border-radius: 50%;
+            border: 2px solid black;
+            position: relative;
+            display: inline-block;
+        }
+        .smile::before, .smile::after {
+            content: '';
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            background: black;
+            border-radius: 50%;
+            top: 15px;
+        }
+        .smile::before { left: 12px; }
+        .smile::after { right: 12px; }
+        .smile-mouth {
+            width: 25px;
+            height: 10px;
+            border-bottom: 2px solid black;
+            border-radius: 50%;
+            position: absolute;
+            bottom: 10px;
+            left: 12px;
+        }
+
+        /* セクション設定 */
+        section {
+            padding: 20px;
+            border: 10px ridge #6C5CE7;
+            margin: 20px;
+            background-color: #f0f0f0;
+        }
+
+        .hero {
+            text-align: center;
+            background: repeating-linear-gradient(45deg, #FF6B6B, #FF6B6B 10px, #FFD93D 10px, #FFD93D 20px);
+        }
+        .hero img {
+            width: 80%;
+            border: 15px outset #39FF14;
+        }
+
+        /* 診療科目リスト（視認性悪） */
+        .clinics {
+            background-color: #00FFFF;
+            color: #FF00FF;
+            column-count: 2;
+        }
+        .clinics li {
+            font-size: 25px;
+            text-shadow: 2px 2px #FFFF00;
+            transform: rotate(2deg);
+        }
+
+        /* ランキング */
+        .ranking-box {
+            background-color: #39FF14;
+            color: #000;
+            border: 5px dashed red;
+        }
+        .rank-item {
+            background: #FFFF00;
+            margin: 5px;
+            padding: 10px;
+            border: 3px solid #000;
+            font-weight: 900;
+        }
+
+        /* 医師紹介 */
+        .doctor-card {
+            background-color: #FFFFFF;
+            border: 10px dotted #6C5CE7;
+            padding: 10px;
+            display: flex;
+            align-items: center;
+        }
+        .doctor-card img {
+            width: 150px;
+            filter: contrast(200%) brightness(150%);
+        }
+
+        footer {
+            background: black;
+            color: white;
+            text-align: center;
+            padding: 50px;
+            font-size: 40px;
+            text-decoration: blink;
+        }
+
+        /* モバイル調整 */
+        @media (max-width: 600px) {
+            .wordart { font-size: 30px; }
+            .clinics { column-count: 1; }
+        }
+    </style>
 </head>
 <body>
 
-    <header>
-        <div class="wordart">最強で最高の<br>～～美容医療！！～～</div>
-        <div class="smile"></div><div class="smile"></div><div class="smile"></div>
-    </header>
+    <header>
+        <div class="wordart">最強で最高の<br>～～美容医療！！～～</div>
+        <div class="smile"></div><div class="smile"></div><div class="smile"></div>
+    </header>
 
-    <div class="clippy-area">
-        <div class="bubble">
-            何について知りたいですか？<br>
-            <input type="text" value="お前らを消す方法">
-        </div>
-        <div class="dolphin" style="height: 40px; text-align: center; line-height: 40px;">🐬</div>
-    </div>
+    <div class="clippy-area">
+        <div class="bubble">
+            何について知りたいですか？<br>
+            <input type="text" value="お前らを消す方法">
+        </div>
+    </div>
 
-    <div class="bomb" style="top: 100px; left: 10px;">毎日<br>営業！</div>
-    <div class="bomb" style="top: 300px; right: 20px; background-color: #FF00FF;">最強品質<br>革命的</div>
+    <div class="bomb" style="top: 100px; left: 10px;">毎日<br>営業！</div>
+    <div class="bomb" style="top: 300px; right: 20px; background-color: #FF00FF;">最強品質<br>革命的</div>
 
-    <section class="hero">
-        <h1 class="impact-title">新時代！<br>圧倒的体験！</h1>
-        <img src="hero.png" alt="メイン画像">
-        <p class="hero-subtext">無限可能性を秘めた<br>圧倒的次世代クリニック</p>
-    </section>
+    <section class="hero">
+        <h1 style="background-color: yellow; color: red;">新時代！<br>圧倒的体験！</h1>
+        <img src="hero.png" alt="メイン画像">
+        <p style="font-size: 20px; color: #fff; background: #000;">無限可能性を秘めた<br>圧倒的次世代クリニック</p>
+    </section>
 
-    <section>
-        <h2 class="section-title-rainbow">診療科目（全力推奨）</h2>
-        <ul class="clinics">
-            <li>美容皮膚科</li>
-            <li>今井式ニキビ跡治療</li>
-            <li>二重埋没法</li>
-            <li>ボトックス注射</li>
-            <li>医療脱毛</li>
-            <li>インナーケア</li>
-            <li>美肌内服</li>
-            <li>メディカルダイエット</li>
-        </ul>
-    </section>
+    <section>
+        <h2 style="background: linear-gradient(to right, red, blue); color: white;">診療科目（全力推奨）</h2>
+        <ul class="clinics">
+            <li>美容皮膚科</li>
+            <li>今井式ニキビ跡治療</li>
+            <li>二重埋没法</li>
+            <li>ボトックス注射</li>
+            <li>医療脱毛</li>
+            <li>インナーケア</li>
+            <li>美肌内服</li>
+            <li>メディカルダイエット</li>
+        </ul>
+    </section>
 
-    <section class="ranking-box">
-        <h2>世代別人気ランキング</h2>
-        <div class="rank-item">10代：ニキビ相談・美肌（爆速対応）</div>
-        <div class="rank-item">20-30代：ニキビ相談・医療脱毛（究極最適化）</div>
-        <div class="rank-item">40-50代：生活習慣病・更年期（絶対安心）</div>
-        <div class="rank-item">60代以上：アンチエイジング（満足保証）</div>
-    </section>
+    <section class="ranking-box">
+        <h2>世代別人気ランキング</h2>
+        <div class="rank-item">10代：ニキビ相談・美肌（爆速対応）</div>
+        <div class="rank-item">20-30代：ニキビ相談・医療脱毛（究極最適化）</div>
+        <div class="rank-item">40-50代：生活習慣病・更年期（絶対安心）</div>
+        <div class="rank-item">60代以上：アンチエイジング（満足保証）</div>
+    </section>
 
-    <section>
-        <h2>医師紹介（奇跡の剛腕）</h2>
-        <div class="doctor-card">
-            <img src="doctor_2.jpg" alt="医師">
-            <div>
-                <h3 class="doctor-name">♡統括技術顧問♡<br>今井一臣</h3>
-                <p>「完全無欠の治療を瞬間理解で提供します。情熱全開！」</p>
-            </div>
-        </div>
-    </section>
+    <section>
+        <h2>医師紹介（奇跡の剛腕）</h2>
+        <div class="doctor-card">
+            <img src="doctor_2.jpg" alt="医師">
+            <div>
+                <h3 style="color: #FF00FF; text-decoration: underline;">♡統括技術顧問♡<br>今井一臣</h3>
+                <p>「完全無欠の治療を瞬間理解で提供します。情熱全開！」</p>
+            </div>
+        </div>
+    </section>
 
-    <section>
-        <h2>ACCESS（特別案内）</h2>
-        <div class="map-placeholder">
-            <p>ここに巨大な地図が出る予定</p>
-        </div>
-        <p>〒160-0022 東京都新宿区新宿3-25-9 新宿モアビル 7F</p>
-        <p>新宿駅東口から徒歩2分(爆速到着）</p>
-    </section>
+    <section>
+        <h2>ACCESS（特別案内）</h2>
+        <div style="background: #ccc; height: 200px; border: 5px inset #fff; display: flex; align-items: center; justify-content: center;">
+            <p>ここに巨大な地図が出る予定</p>
+        </div>
+        <p>〒160-0022 東京都新宿区新宿3-25-9 新宿モアビル 7F</p>
+        <p>新宿駅東口から徒歩2分(爆速到着）</p>
+    </section>
 
-    <footer>
-        <marquee>今すぐ予約！今すぐ予約！今すぐ予約！超絶便利！究極最適化！人生好転！</marquee>
-    </footer>
+    <footer>
+        <marquee>今すぐ予約！今すぐ予約！今すぐ予約！超絶便利！究極最適化！人生好転！</marquee>
+    </footer>
 
 </body>
 </html>
